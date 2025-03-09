@@ -8,8 +8,8 @@ scaler = joblib.load("models/scaler.pkl")
 
 # Example user input
 new_data = pd.DataFrame([{
-    "meal_intake": 50,
-    "insulin_dose": 10,
+    "meal_intake": 60,
+    "insulin_dose": 9,
     "exercise_minutes": 30,
     "medication_taken": 1,
     "sleep_hours": 7,
