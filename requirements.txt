@@ -1,0 +1,31 @@
+# FastAPI & Web Server
+fastapi
+uvicorn
+
+# MongoDB Database
+motor
+
+# User Authentication (Password Hashing & JWT)
+passlib[bcrypt]
+pyjwt
+
+# Machine Learning (Glucose Prediction)
+numpy
+pandas
+scikit-learn
+xgboost
+joblib
+
+# OCR (Medical Report Extraction)
+pytesseract
+pdf2image
+pillow
+
+# Image Processing
+opencv-python
+
+# PDF Processing
+reportlab
+
+# Other Utilities
+python-multipart  # Required for file uploads in FastAPI
