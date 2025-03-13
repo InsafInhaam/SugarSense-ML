@@ -1,7 +1,9 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi.responses import FileResponse
 from api.database import health_collection
 from api.models import HealthData
 from api.ocr import extract_text_from_pdf, extract_text_from_image
+from api.pdf_generator import generate_pdf
 
 router = APIRouter()
 
@@ -33,3 +35,22 @@ async def upload_report(file: UploadFile = File(...)):
         return {"error": "Unsupported file format"}
     
     return {"extracted_text": extracted_text}
+
+@router.get('/download_report/{user_id}', response_class=FileResponse)
+async def download_report(user_id: str):
+    # fetch user health data from mongoDB
+    user_health_data = await health_collection.find_one({"user_id": user_id})
+    
+    print(user_health_data)
+    
+    if not user_health_data:
+        raise HTTPException(status_code=404, detail="No health data found")
+    
+    # generate PDF report
+    pdf_path = generate_pdf(user_id, user_health_data)
+    
+    return FileResponse(
+        pdf_path, 
+        media_type="application/pdf", 
+        filename=f"{user_id}_report.pdf"
+    )
