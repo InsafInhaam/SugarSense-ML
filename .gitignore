@@ -1,0 +1,27 @@
+# Node and Python dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Environment variables and keys
+.env
+serviceAccountKey.json
+
+# Logs and system files
+*.log
+.DS_Store
+*.pid
+*.seed
+*.swp
+
+# Compiled and built files
+dist/
+build/
+*.pyc
+*.pyo
+
+# Editor and OS specific files
+.vscode/
+.idea/
+*.iml
+Thumbs.db
