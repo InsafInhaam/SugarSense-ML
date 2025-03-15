@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # Load synthetic dataset
-df = pd.read_csv("synthetic_glucose_data.csv")
+df = pd.read_csv("data/synthetic_glucose_data.csv")
 
 # Display sample data
 print("Dataset Sample:")

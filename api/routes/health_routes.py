@@ -1,9 +1,11 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File
 from fastapi.responses import FileResponse
-from api.database import health_collection
-from api.models import HealthData
+from api.database import health_collection, users_collection
+from api.models import HealthData, NotificationRequest
 from api.ocr import extract_text_from_pdf, extract_text_from_image
 from api.pdf_generator import generate_pdf
+from api.firebase import send_notification
+from bson import ObjectId
 
 router = APIRouter()
 
@@ -54,3 +56,21 @@ async def download_report(user_id: str):
         media_type="application/pdf", 
         filename=f"{user_id}_report.pdf"
     )
+    
+@router.post("/send_notification")
+async def notify_user(data: NotificationRequest):
+    user = await users_collection.find_one({"_id": ObjectId(data.user_id)})
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if "fcm_token" not in user or not user["fcm_token"]:
+        raise HTTPException(status_code=400, detail="FCM Token not found or invalid")
+
+    token = user["fcm_token"]
+    
+    if not isinstance(token, str) or len(token) < 100:
+        raise HTTPException(status_code=400, detail="Invalid FCM Token format")
+    
+    response = send_notification(token, data.title, data.body)
+    return {"message": "Notification sent", "response": response}

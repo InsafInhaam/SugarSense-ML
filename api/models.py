@@ -6,11 +6,13 @@ class User(BaseModel):
     username: str
     email: EmailStr
     password: str
+    fcm_token: Optional[str] = None
     
 # ✅ Login Schema
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str
+    fcm_token: Optional[str] = None
     
 # ✅ Health Data Schema
 class HealthData(BaseModel):
@@ -22,3 +24,17 @@ class HealthData(BaseModel):
     insulin_dose: Optional[float] = None
     medication_taken: Optional[bool] = None
     medical_reports: Optional[List[str]] = []
+    
+# ✅ Define a Pydantic model for request body validation
+class NotificationRequest(BaseModel):
+    user_id: str
+    title: str
+    body: str
+    
+class FCMTokenRequest(BaseModel):
+    user_id: str
+    fcm_token: str
+    
+class FCMTokenUpdate(BaseModel):
+    user_id: str
+    fcm_token: str

@@ -5,6 +5,10 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import os
+
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# file_path = os.path.join(BASE_DIR, "data/synthetic_glucose_data.csv")
 
 # Load dataset
 df = pd.read_csv("data/synthetic_glucose_data.csv")

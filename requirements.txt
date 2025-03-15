@@ -1,31 +1,35 @@
-# FastAPI & Web Server
+# ✅ FastAPI & Web Server
 fastapi
 uvicorn
 
-# MongoDB Database
+# ✅ MongoDB Database
 motor
 
-# User Authentication (Password Hashing & JWT)
+# ✅ User Authentication (Password Hashing & JWT)
 passlib[bcrypt]
 pyjwt
 
-# Machine Learning (Glucose Prediction)
+# ✅ Machine Learning (Glucose Prediction)
 numpy
 pandas
 scikit-learn
 xgboost
 joblib
 
-# OCR (Medical Report Extraction)
+# ✅ OCR (Medical Report Extraction)
 pytesseract
 pdf2image
 pillow
 
-# Image Processing
-opencv-python
+# ✅ Image Processing
+opencv-python-headless  # Headless version for Docker compatibility
 
-# PDF Processing
+# ✅ PDF Processing
 reportlab
 
-# Other Utilities
+# ✅ Firebase Cloud Messaging (Push Notifications)
+firebase-admin
+
+# ✅ Other Utilities
 python-multipart  # Required for file uploads in FastAPI
+requests  # For making HTTP requests if needed

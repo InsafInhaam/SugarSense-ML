@@ -31,6 +31,9 @@ async def register_user(user: User):
     hashed_password = hash_password(user.password)
     user_data = user.dict()
     user_data["password"] = hashed_password
+    
+    if "fcm_token" not in user_data:
+        user_data["fcm_token"] = None
 
     new_user = await users_collection.insert_one(user_data)
     return {"message": "User registered successfully", "user_id": str(new_user.inserted_id)}
@@ -43,4 +46,12 @@ async def login_user(request: LoginRequest):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_jwt_token({"email": user["email"]})
+    
+    # Automatically update FCM Token when user logs in
+    if request.fcm_token:
+        await users_collection.update_one(
+            {"email": request.email},
+            {"$set": {"fcm_token": request.fcm_token}}
+        )
+    
     return {"message": "Login successful", "token": token}

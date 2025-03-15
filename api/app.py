@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from api.auth import router as auth_router
 from api.routes.health_routes import router as health_router
 from api.predict import router as predict_router
+from api.scheduler import scheduler
 
 app = FastAPI()
 
